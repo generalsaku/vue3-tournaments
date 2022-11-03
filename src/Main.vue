@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
+import { useUserStore } from "@/stores/user";
+
+const userStore = useUserStore();
 
 window.addEventListener("load", () => {
   const update = () => {
@@ -9,6 +12,8 @@ window.addEventListener("load", () => {
 
   window.addEventListener("resize", update);
   window.addEventListener("orientationchange", update);
+
+  userStore.updateLoggedIn();
 
   update();
 });
@@ -39,16 +44,5 @@ body {
   font-family: "Roboto", sans-serif;
   color: white;
   font-size: 2rem;
-}
-
-button {
-  background: transparent;
-  border: 0;
-  border-radius: 3px;
-  color: inherit;
-
-  &:hover {
-    background: RGBA(var(--app-base-color2-rgb), 0.1);
-  }
 }
 </style>

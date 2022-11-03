@@ -1,16 +1,31 @@
-<script setup lang="ts"></script>
-
 <template>
   <header>
-    <button>
+    <button class="btn-round">
       <mdi-menu class="icon" />
     </button>
     <div class="self-center">bracket master</div>
-    <button class="sign-in-google flex items-center bg-red-400 hover:bg-red-300 ring-1 ring-red-300">
+    <button
+      v-if="!userStore.isLoggedIn"
+      class="btn sign-in-google"
+      @click="userStore.signIn"
+    >
       <span class="mr-2">Sign in</span> <mdi-google class="icon" />
+    </button>
+    <button
+      v-else
+      class="btn-round p-0 w-20 h-20"
+      @click="this.$router.push('profile')"
+    >
+      <img :src="userStore.image" />
     </button>
   </header>
 </template>
+
+<script setup lang="ts">
+import { useUserStore } from "@/stores/user";
+
+const userStore = useUserStore();
+</script>
 
 <style lang="less" scoped>
 header {
@@ -25,12 +40,12 @@ header {
     }
   }
 
-  .sign-in-google {
-    padding: 0.5rem 1rem;
+  // .sign-in-google {
+  //   padding: 0.5rem 1rem;
 
-    .icon {
-      font-size: 2rem;
-    }
-  }
+  //   .icon {
+  //     font-size: 2rem;
+  //   }
+  // }
 }
 </style>
