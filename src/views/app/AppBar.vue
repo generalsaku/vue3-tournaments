@@ -1,20 +1,20 @@
 <template>
-  <header>
-    <button class="btn-round">
-      <mdi-menu class="icon" />
+  <header class="app-shadow-primary app-flex-center justify-between px-4 py-2">
+    <button class="app-btn-round" @click="uxStore.togglePanel">
+      <mdi-menu class="icon text-5xl" />
     </button>
     <div class="self-center">bracket master</div>
     <button
       v-if="!userStore.isLoggedIn"
-      class="btn sign-in-google"
+      class="app-btn bg-red-400"
       @click="userStore.signIn"
     >
       <span class="mr-2">Sign in</span> <mdi-google class="icon" />
     </button>
     <button
       v-else
-      class="btn-round p-0 w-20 h-20"
-      @click="this.$router.push('profile')"
+      class="app-btn-round p-0 w-20 h-20"
+      @click="this.$router.push({ name: 'profile' })"
     >
       <img :src="userStore.image" />
     </button>
@@ -23,29 +23,10 @@
 
 <script setup lang="ts">
 import { useUserStore } from "@/stores/user";
+import { useUxStore } from "@/stores/ux";
 
 const userStore = useUserStore();
+const uxStore = useUxStore();
 </script>
 
-<style lang="less" scoped>
-header {
-  display: flex;
-  padding: 8px 8px;
-  box-shadow: var(--app-elevation-4);
-  justify-content: space-between;
-
-  button {
-    .icon {
-      font-size: 3rem;
-    }
-  }
-
-  // .sign-in-google {
-  //   padding: 0.5rem 1rem;
-
-  //   .icon {
-  //     font-size: 2rem;
-  //   }
-  // }
-}
-</style>
+<style lang="less" scoped></style>

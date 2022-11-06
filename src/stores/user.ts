@@ -39,8 +39,7 @@ export const useUserStore = defineStore("user", () => {
   }
 
   const signIn = () => {
-    // TODO: use process.env  
-    window.location.href = `https://localhost:7230/auth/login?redirectUri=${window.location.href}`;
+    window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/login?redirectUri=${window.location.href}`;
   }
 
   return { isLoggedIn, name, image, updateLoggedIn, signIn, signOut };

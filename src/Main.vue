@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
-import { useUserStore } from "@/stores/user";
-
-const userStore = useUserStore();
 
 window.addEventListener("load", () => {
   const update = () => {
@@ -12,8 +9,6 @@ window.addEventListener("load", () => {
 
   window.addEventListener("resize", update);
   window.addEventListener("orientationchange", update);
-
-  userStore.updateLoggedIn();
 
   update();
 });
@@ -31,16 +26,10 @@ html {
 html,
 body,
 div[data-v-app] {
-  height: calc(100 * var(--app-vh));
+  height: calc(100 * var(--app-vh, 10px));
 }
 
 body {
-  margin: 0;
-  background: linear-gradient(
-    to right bottom,
-    var(--app-base-color1),
-    var(--app-base-color2)
-  );
   font-family: "Roboto", sans-serif;
   color: white;
   font-size: 2rem;
