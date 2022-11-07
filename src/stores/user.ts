@@ -20,13 +20,18 @@ export const useUserStore = defineStore("user", () => {
     }
 
     const access_token = localStorage.getItem(accessTokenKey)
-    isLoggedIn.value = !!access_token?.length
+    if (access_token?.length) {
+      const jwt = parseJwt(access_token ?? '')
 
-    if (isLoggedIn.value) {
-      const jwtPayload = parseJwt(access_token ?? '')
-      name.value = jwtPayload.name ?? '[no name]'
-      image.value = jwtPayload.image ?? 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=' // empty image
+      isLoggedIn.value = !isTokenExpired(jwt.exp)
+
+      name.value = jwt.name ?? '[no name]'
+      image.value = jwt.image ?? 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=' // empty image
+      
+      return
     }
+
+    isLoggedIn.value = false
   }
 
   const signOut = () => {
@@ -55,3 +60,5 @@ const parseJwt = (token: string) => {
 
   return JSON.parse(jsonPayload);
 }
+
+const isTokenExpired = (exp: number) => Date.now() >= exp * 1000
