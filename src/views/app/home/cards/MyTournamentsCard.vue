@@ -43,7 +43,15 @@
           <ComboButton
             v-for="tournament in subscribed"
             :key="tournament.id"
-            :main="{ name: tournament.name, action: () => {} }"
+            :main="{
+              name: tournament.name,
+              action: () => {
+                this.$router.push({
+                  name: 'tournament',
+                  params: { tournamentId: tournament.id },
+                });
+              },
+            }"
             :menu="[
               {
                 name: 'Unsubscribe',
@@ -70,16 +78,16 @@ import { onMounted, ref } from "vue";
 import Card from "@/views/app/home/Card.vue";
 import ComboButton from "@/components/ComboButton.vue";
 
-import { useUserStore } from "@/stores/user";
+import { useStore } from "@/stores/store";
 import service from "@/api/service";
 
-const userStore = useUserStore();
+const $store = useStore();
 
 const owner = ref([]);
 const subscribed = ref([]);
 
 onMounted(async () => {
-  if (userStore.isLoggedIn) {
+  if ($store.user.isAuthorized) {
     const tournaments = await service.tournament.mine();
     owner.value = tournaments.filter((t) => !t.isSubscribed);
     subscribed.value = tournaments.filter((t) => t.isSubscribed);

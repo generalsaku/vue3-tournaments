@@ -17,10 +17,6 @@
 
 <script setup lang="ts">
 import Card from "@/views/app/home/Card.vue";
-
-import { useUserStore } from "@/stores/user";
-
-const userStore = useUserStore();
 </script>
 
 <style lang="less" scoped></style>

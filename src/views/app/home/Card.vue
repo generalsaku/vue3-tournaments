@@ -18,7 +18,7 @@
     <div class="mt-auto">
       <button
         v-if="goTo"
-        :disabled="!userStore.isLoggedIn"
+        :disabled="!$store.user.isAuthorized"
         class="app-btn-outline ml-auto mt-4"
         @click="this.$router.push(goTo)"
       >
@@ -29,11 +29,11 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from "@/stores/user";
+import { useStore } from "@/stores/store";
 
 defineProps(["goTo"]);
 
-const userStore = useUserStore();
+const $store = useStore();
 </script>
 
 <style lang="less" scoped></style>

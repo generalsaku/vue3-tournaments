@@ -10,14 +10,12 @@ import AppTournamentStandings from "../views/app/tournament/AppTournamentStandin
 import AppTournamentGames from "../views/app/tournament/AppTournamentGames.vue";
 import AppTournamentBracket from "../views/app/tournament/AppTournamentBracket.vue";
 
-import Fullscreen from "../views/fullscreen/Fullscreen.vue";
+import Bigscreen from "../views/bigscreen/Bigscreen.vue";
 
-import { useUxStore } from "@/stores/ux";
-import { useUserStore } from "@/stores/user";
+import { useStore } from "@/stores/store";
 
 export default function () {
-  const uxStore = useUxStore()
-  const userStore = useUserStore()
+  const $store = useStore()
 
   const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,7 +28,7 @@ export default function () {
           {
             name: 'home',
             path: 'home',
-            component: AppHome
+            component: AppHome,
           },
           {
             name: 'profile',
@@ -68,22 +66,22 @@ export default function () {
         ]
       },
       {
-        name: 'full',
-        path: "/full",
-        component: Fullscreen,
+        name: 'bigscreen',
+        path: "/bigscreen",
+        component: Bigscreen,
       },
     ],
   });
 
   router.beforeEach((to, from, next) => {
-    userStore.updateLoggedIn()
+    $store.authorize()
 
-    if (to.path === '/profile' && !userStore.isLoggedIn) {
+    if (to.path === '/profile' && !$store.user.isAuthorized) {
       next({ name: 'home' })
     }
 
-    if (uxStore.isPanelOpen) {
-      uxStore.togglePanel()
+    if ($store.isPanelOpen) {
+      $store.togglePanel()
     }
 
     next()

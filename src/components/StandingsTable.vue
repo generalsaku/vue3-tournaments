@@ -60,16 +60,15 @@
 </template>
 
 <script setup lang="ts">
-import { useTournamentStore } from "@/stores/tournament";
+import { useStore } from "@/stores/store";
 
 import Tooltip from "@/components/Tooltip.vue";
 
 defineProps(["standings"]);
 
-const tournamentStore = useTournamentStore();
+const $store = useStore();
 
-const getTeamImage = (teamName: string) =>
-  tournamentStore.getTeamImage(teamName);
+const getTeamImage = (teamName: string) => $store.getTeamImage(teamName);
 
 const getTooltip = (type: string) => {
   switch (type) {

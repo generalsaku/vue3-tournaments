@@ -1,7 +1,7 @@
 <template>
   <section class="p-12">
     <section
-      v-if="!userStore.isLoggedIn"
+      v-if="!$store.user.isAuthorized"
       class="flex flex-col items-center justify-center"
     >
       <div class="app-flex-center pb-8">Sign in to access features below</div>
@@ -21,9 +21,9 @@ import CreateTeamsCard from "@/views/app/home/cards/CreateTeamsCard.vue";
 import CreateTournamentsCard from "@/views/app/home/cards/CreateTournamentsCard.vue";
 import MyTournamentsCard from "@/views/app/home/cards/MyTournamentsCard.vue";
 
-import { useUserStore } from "@/stores/user";
+import { useStore } from "@/stores/store";
 
-const userStore = useUserStore();
+const $store = useStore();
 </script>
 
 <style lang="less" scoped></style>

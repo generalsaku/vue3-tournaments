@@ -3,13 +3,15 @@ import { defineStore } from "pinia";
 
 export const useUserStore = defineStore("user", () => {
 
-  const isLoggedIn = ref(false);
-  const image = ref('');
-  const name = ref('');
-  
+  const user = ref({
+    isAuthorized: false,
+    name: '',
+    image: ''
+  })
+
   const accessTokenKey = "access_token"
 
-  const updateLoggedIn = () => {
+  const authorize = () => {
     const params = new Proxy(new URLSearchParams(window.location.search), {
       get: (searchParams, prop) => searchParams.get(prop as any),
     }) as any;
@@ -23,31 +25,24 @@ export const useUserStore = defineStore("user", () => {
     if (access_token?.length) {
       const jwt = parseJwt(access_token ?? '')
 
-      isLoggedIn.value = !isTokenExpired(jwt.exp)
-
-      name.value = jwt.name ?? '[no name]'
-      image.value = jwt.image ?? 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=' // empty image
+      user.value.isAuthorized = !isTokenExpired(jwt.exp)
+      user.value.name = jwt.name ?? '[no name]'
+      user.value.image = jwt.image ?? 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=' // empty image
       
       return
     }
 
-    isLoggedIn.value = false
+    user.value.isAuthorized = false
   }
 
-  const signOut = () => {
+  const deauthorize = () => {
     localStorage.removeItem(accessTokenKey)
-    isLoggedIn.value = false
-    image.value = ''
-    name.value = ''
-
-    // TODO: go to / ?
+    user.value.isAuthorized = false
+    user.value.name = ''
+    user.value.image = ''
   }
 
-  const signIn = () => {
-    window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/login?redirectUri=${window.location.href}`;
-  }
-
-  return { isLoggedIn, name, image, updateLoggedIn, signIn, signOut };
+  return { authorize, deauthorize, user };
 });
 
 

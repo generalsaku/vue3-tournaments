@@ -1,13 +1,18 @@
 <template>
   <header class="app-shadow-primary app-flex-center justify-between px-4 py-2">
-    <button class="app-btn-round" @click="uxStore.togglePanel">
+    <button class="app-btn-round" @click="$store.togglePanel">
       <mdi-menu class="icon text-5xl" />
     </button>
-    <div class="self-center">bracket master</div>
+    <div class="self-center flex flex-col items-center">
+      <span>BRACKET MASTER</span>
+      <span v-if="$store.tournament" class="text-3xl"
+        >"{{ $store.tournament.name }}"</span
+      >
+    </div>
     <button
-      v-if="!userStore.isLoggedIn"
+      v-if="!$store.user.isAuthorized"
       class="app-btn bg-red-400"
-      @click="userStore.signIn"
+      @click="signIn"
     >
       <span class="mr-2">Sign in</span> <mdi-google class="icon" />
     </button>
@@ -16,17 +21,21 @@
       class="app-btn-round p-0 w-20 h-20"
       @click="this.$router.push({ name: 'profile' })"
     >
-      <img :src="userStore.image" />
+      <img :src="$store.user.image" />
     </button>
   </header>
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from "@/stores/user";
-import { useUxStore } from "@/stores/ux";
+import { useStore } from "@/stores/store";
 
-const userStore = useUserStore();
-const uxStore = useUxStore();
+const $store = useStore();
+
+const signIn = () => {
+  window.location.href = `${
+    import.meta.env.VITE_API_BASE_URL
+  }/auth/login?redirectUri=${window.location.href}`;
+};
 </script>
 
 <style lang="less" scoped></style>

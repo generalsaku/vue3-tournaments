@@ -86,32 +86,21 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-
-import { useTournamentStore } from "@/stores/tournament";
-import { useUxStore } from "@/stores/ux";
+import { useStore } from "@/stores/store";
 
 const props = defineProps(["game", "readonly"]);
-
-const uxStore = useUxStore();
-const tournamentStore = useTournamentStore();
+const $store = useStore();
 
 const isExpanded = computed(
-  () =>
-    props.readonly !== true &&
-    tournamentStore.expandedGameId === props.game.id &&
-    !props.game.isLocked
+  () => props.readonly !== true && $store.isTournamentGameExpanded(props.game)
 );
 
 const toggle = () => {
-  tournamentStore.setExpandedGame(!isExpanded.value ? props.game.id : "");
+  $store.toggleTournamentGame(!isExpanded.value ? props.game.id : "");
 };
 
-const team1Image = computed(() =>
-  tournamentStore.getTeamImage(props.game.team1)
-);
-const team2Image = computed(() =>
-  tournamentStore.getTeamImage(props.game.team2)
-);
+const team1Image = computed(() => $store.getTeamImage(props.game.team1));
+const team2Image = computed(() => $store.getTeamImage(props.game.team2));
 
 const isGameNameVisible = computed(
   () =>
@@ -123,9 +112,9 @@ const set = async (prop: string, value: number | boolean) => {
   const game = { ...props.game };
   game[prop] = value;
 
-  uxStore.setLoading(true);
-  await tournamentStore.updateGame(game);
-  uxStore.setLoading(false);
+  $store.setLoading(true);
+  await $store.updateTournamentGame(game);
+  $store.setLoading(false);
 };
 </script>
 

@@ -1,7 +1,7 @@
 <template>
-  <div v-if="tournament">
+  <div v-if="$store.tournament">
     <div
-      v-for="group in tournament.qualifyingRound.groups"
+      v-for="group in $store.tournament.qualifyingRound.groups"
       :key="group.name"
       class="mt-4"
     >
@@ -12,15 +12,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-import { useTournamentStore } from "@/stores/tournament";
+import { useStore } from "@/stores/store";
 
 import HeaderLine from "@/components/HeaderLine.vue";
 import Game from "@/components/Game.vue";
 
-const userTournamentStore = useTournamentStore();
-
-const tournament = computed(() => userTournamentStore.tournament);
+const $store = useStore();
 </script>
 
 <style lang="less" scoped></style>

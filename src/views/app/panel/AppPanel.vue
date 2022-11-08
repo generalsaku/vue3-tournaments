@@ -2,7 +2,7 @@
   <section
     ref="$ref"
     class="fixed top-0 left-0 min-w-[28rem] h-full app-shadow-primary ease-in-out duration-300 app-bg-primary-to-secondary z-50"
-    :class="[uxStore.isPanelOpen ? 'translate-x-0' : '-translate-x-full']"
+    :class="[$store.isPanelOpen ? 'translate-x-0' : '-translate-x-full']"
   >
     <h1 class="app-flex-center h-28">BRACKET MASTER</h1>
 
@@ -26,28 +26,40 @@
         </button>
       </li>
     </ul>
+    <section v-if="$store.tournament" class="flex flex-col items-center">
+      <hr class="w-80 my-4 mb-8" />
+      <div class="w-full">
+        <h3 class="text-3xl mb-2 ml-16">
+          {{ $store.tournament.name }}
+        </h3>
+        <TournamentSection></TournamentSection>
+      </div>
+    </section>
   </section>
 </template>
 
 <script setup lang="ts">
 import { onBeforeMount, ref, watch } from "vue";
-import { useUxStore } from "@/stores/ux";
+import { useStore } from "@/stores/store";
+
+import TournamentSection from "@/views/app/panel/TournamentSection.vue";
 
 const $ref = ref();
-const uxStore = useUxStore();
+
+const $store = useStore();
 
 const detectClickOutsideListener = (event: Event) => {
   if (event.target === $ref.value || $ref.value.contains(event.target)) {
     return;
   }
 
-  uxStore.togglePanel();
+  $store.togglePanel();
 };
 
 watch(
-  () => uxStore.isPanelOpen,
+  () => $store.isPanelOpen,
   () => {
-    if (uxStore.isPanelOpen) {
+    if ($store.isPanelOpen) {
       requestAnimationFrame(() =>
         document.addEventListener("click", detectClickOutsideListener)
       );

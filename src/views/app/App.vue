@@ -10,7 +10,7 @@
 import { RouterView } from "vue-router";
 
 import AppBar from "./AppBar.vue";
-import AppPanel from "./AppPanel.vue";
+import AppPanel from "./panel/AppPanel.vue";
 </script>
 
 <style lang="less" scoped></style>

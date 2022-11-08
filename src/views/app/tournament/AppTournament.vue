@@ -8,16 +8,16 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { RouterView, useRoute } from "vue-router";
-import { useTournamentStore } from "@/stores/tournament";
+import { useStore } from "@/stores/store";
 import AppTournamentBar from "@/views/app/tournament/AppTournamentBar.vue";
 
 const route = useRoute();
 
-const userTournamentStore = useTournamentStore();
+const $store = useStore();
 
 onMounted(() => {
   if (route.params.tournamentId?.length) {
-    userTournamentStore.load(route.params.tournamentId);
+    $store.loadTournament(route.params.tournamentId);
   }
 });
 </script>
