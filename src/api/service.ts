@@ -41,7 +41,7 @@ export default {
             const query = tiebreaker.reduce((acc, current) => {
                 return acc += `tiebreaker[]=${encodeURIComponent(current)}&`
             }, '').slice(0, -1)
-
+            
             return await requestPut(url(`/tournament/${id}/tiebreaker?${query}`))
         },
     }

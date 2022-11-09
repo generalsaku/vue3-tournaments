@@ -27,7 +27,10 @@
             :menu="[
               {
                 name: 'Delete',
-                action: () => {},
+                action: async () => {
+                  await this.$store.deleteTournament(tournament.id);
+                  await update();
+                },
               },
             ]"
             class="mr-6 mb-6"
@@ -55,8 +58,9 @@
             :menu="[
               {
                 name: 'Unsubscribe',
-                action: () => {
-                  this.$router.push({ name: 'profile' });
+                action: async () => {
+                  await this.$store.unsubscribeToTournament(tournament.id);
+                  await update();
                 },
               },
             ]"
@@ -79,20 +83,23 @@ import Card from "@/views/app/home/Card.vue";
 import ComboButton from "@/components/ComboButton.vue";
 
 import { useStore } from "@/stores/store";
-import service from "@/api/service";
 
 const $store = useStore();
 
 const owner = ref([]);
 const subscribed = ref([]);
 
-onMounted(async () => {
-  if ($store.user.isAuthorized) {
-    const tournaments = await service.tournament.mine();
-    owner.value = tournaments.filter((t) => !t.isSubscribed);
-    subscribed.value = tournaments.filter((t) => t.isSubscribed);
+onMounted(async () => update());
+
+const update = async () => {
+  if (!$store.user.isAuthorized) {
+    return;
   }
-});
+
+  const tournaments = await $store.getMyTournaments();
+  owner.value = tournaments.filter((t) => !t.isSubscribed);
+  subscribed.value = tournaments.filter((t) => t.isSubscribed);
+};
 </script>
 
 <style lang="less" scoped></style>

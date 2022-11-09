@@ -4,20 +4,19 @@ import service from "@/api/service";
 
 export const useTournamentStore = defineStore("tournament", () => {
 
-  const _tournament = ref(null) as any;
+  const tournament = ref(null) as any;
 
   const expandedGameId = ref('');
 
   const exists = computed(() => !!tournament.value)
-  const tournament = computed(() => _tournament.value)
   const isLocked = computed(() => exists.value && !!tournament.value.isLocked)
 
   const load = async (id: string) => {
-    _tournament.value = await service.tournament.get(id)
+    tournament.value = await service.tournament.get(id)
     console.log(tournament.value)
   }
 
-  const sync = async () => (_tournament.value = await service.tournament.get(tournament.value?.id))
+  const sync = async () => (tournament.value = await service.tournament.get(tournament.value?.id))
 
   const getTeamImage = (teamName: string) => {
     if (!exists.value || typeof tournament.value.teamImages !== 'object') {

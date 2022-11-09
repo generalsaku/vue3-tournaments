@@ -1,13 +1,11 @@
 <template>
-  <div v-if="$store.tournament">
-    <div
-      v-for="group in $store.tournament.qualifyingRound.groups"
-      :key="group.name"
-      class="mt-4"
-    >
-      <HeaderLine>{{ group.name }}</HeaderLine>
-      <StandingsTable :standings="group.standings"></StandingsTable>
-    </div>
+  <div
+    v-for="group in $store.tournament.qualifyingRound.groups"
+    :key="group.name"
+    class="mt-4"
+  >
+    <HeaderLine>{{ group.name }}</HeaderLine>
+    <StandingsTable :standings="group.standings"></StandingsTable>
   </div>
 </template>
 

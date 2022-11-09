@@ -4,11 +4,14 @@ import App from "../views/app/App.vue";
 import AppHome from "../views/app/home/AppHome.vue";
 import AppProfile from "../views/app/AppProfile.vue";
 import AppInfo from "../views/app/AppInfo.vue";
+import AppTeams from "../views/app/teams/AppTeams.vue";
+import AppCreateTournament from "../views/app/create-tournament/AppCreateTournament.vue";
 
 import AppTournament from "../views/app/tournament/AppTournament.vue";
 import AppTournamentStandings from "../views/app/tournament/AppTournamentStandings.vue";
 import AppTournamentGames from "../views/app/tournament/AppTournamentGames.vue";
 import AppTournamentBracket from "../views/app/tournament/AppTournamentBracket.vue";
+import AppTournamentTiebreaker from "../views/app/tournament/AppTournamentTiebreaker.vue";
 
 import Bigscreen from "../views/bigscreen/Bigscreen.vue";
 
@@ -41,6 +44,16 @@ export default function () {
             component: AppInfo
           },
           {
+            name: 'create-tournament',
+            path: 'create-tournament',
+            component: AppCreateTournament
+          },
+          {
+            name: 'teams',
+            path: 'teams',
+            component: AppTeams
+          },
+          {
             name: 'tournament',
             path: 'tournament/:tournamentId',
             component: AppTournament,
@@ -60,7 +73,12 @@ export default function () {
                 name: 'bracket',
                 path: 'bracket',
                 component: AppTournamentBracket
-              }
+              },
+              {
+                name: 'tiebreaker',
+                path: 'tiebreaker',
+                component: AppTournamentTiebreaker
+              },
             ]
           },
         ]
@@ -85,6 +103,10 @@ export default function () {
     }
 
     next()
+  })
+
+  router.beforeResolve(to => {
+    $store.toggleTournamentGame('')
   })
 
   return router

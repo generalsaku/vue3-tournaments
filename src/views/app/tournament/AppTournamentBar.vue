@@ -1,7 +1,7 @@
 <template>
   <footer class="app-shadow-primary app-flex-center justify-around">
     <button
-      class="app-btn-nav flex-col flex-1 text-2xl border-b-2 border-transparent border-solid"
+      class="app-btn-nav flex-col flex-1 text-2xl border-b-4 border-transparent border-solid"
       :class="{
         'border-[var(--color-primary)]': routeName === 'standings',
       }"
@@ -17,7 +17,7 @@
     </button>
 
     <button
-      class="app-btn-nav flex-col flex-1 text-2xl border-b-2 border-transparent border-solid"
+      class="app-btn-nav flex-col flex-1 text-2xl border-b-4 border-transparent border-solid"
       :class="{
         'border-[var(--color-primary)]': routeName === 'games',
       }"
@@ -33,7 +33,7 @@
     </button>
 
     <button
-      class="app-btn-nav flex-col flex-1 text-2xl border-b-2 border-transparent border-solid"
+      class="app-btn-nav flex-col flex-1 text-2xl border-b-4 border-transparent border-solid"
       :class="{
         'border-[var(--color-primary)]': routeName === 'bracket',
       }"

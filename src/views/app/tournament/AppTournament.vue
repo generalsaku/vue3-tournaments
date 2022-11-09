@@ -1,6 +1,6 @@
 <template>
   <div class="flex-1 overflow-auto">
-    <RouterView></RouterView>
+    <RouterView v-if="$store.tournament"></RouterView>
   </div>
   <AppTournamentBar></AppTournamentBar>
 </template>

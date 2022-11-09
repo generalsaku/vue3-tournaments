@@ -1,86 +1,89 @@
 <template>
-  <div>
-    <table class="w-full table-fixed">
-      <tr v-if="isGameNameVisible" class="game-header-row">
-        <td colspan="5" class="text-2xl pt-2">{{ game.name }}</td>
-      </tr>
-      <tr @click="toggle">
-        <td>
-          <div v-if="team2Image" class="app-btn-round p-0 hover:bg-transparent">
-            <img :src="team1Image" class="w-28" />
-          </div>
-          <span v-else class="font-light text-2xl">{{ game.team1 }}</span>
-        </td>
-        <td>
-          <span>{{ game.team1Score ?? "-" }}</span>
-        </td>
-        <td>
-          <span class="text-blue-300" :class="{ 'opacity-0': !game.overtime }"
+  <div class="px-4" :class="{ 'bg-white/5 pb-4': isExpanded }">
+    <div v-if="isGameNameVisible" class="w-full text-2xl pt-2 text-center">
+      {{ game.name }}
+    </div>
+    <div
+      class="flex items-center justify-between app-border-bottom-light min-h-[50px] max-h-[64px]"
+      @click="toggle"
+    >
+      <div class="w-3/12 text-center">
+        <img v-if="team1Image" :src="team1Image" class="w-28 mx-auto" />
+        <span v-else class="font-light text-2xl">{{ game.team1 }}</span>
+      </div>
+
+      <div class="w-3/12 text-center">
+        <span>{{ game.team1Score ?? "-" }}</span>
+      </div>
+      <div class="w-40 text-center">
+        <span class="text-blue-300" :class="{ 'opacity-0': !game.overtime }"
+          >OT</span
+        >
+      </div>
+      <div class="w-3/12 text-center">
+        <span>{{ game.team2Score ?? "-" }}</span>
+      </div>
+      <div class="w-3/12 text-center">
+        <img v-if="team2Image" :src="team2Image" class="w-28 mx-auto" />
+        <span class="font-light text-2xl" v-else>{{ game.team2 }}</span>
+      </div>
+    </div>
+
+    <div
+      v-if="isExpanded"
+      class="flex items-center justify-between h-24 shadow-inner bg-black/10"
+    >
+      <div class="w-3/12"></div>
+      <div class="w-3/12">
+        <div class="flex items-center justify-center relative">
+          <button
+            class="app-btn-round absolute -left-5"
+            @click="set('team1Score', game.team1Score - 1)"
+          >
+            <mdi:chevron-left class="text-3xl" />
+          </button>
+          <span>{{ game.team1Score }}</span>
+          <button
+            class="app-btn-round absolute -right-5"
+            @click="set('team1Score', game.team1Score + 1)"
+          >
+            <mdi:chevron-right class="text-3xl" />
+          </button>
+        </div>
+      </div>
+      <div class="w-40 text-center">
+        <button
+          class="app-btn mx-auto hover:bg-black/5"
+          :class="{
+            'shadow-inner bg-black/5': !game.overtime,
+            'bg-black/5 ring-1': game.overtime,
+          }"
+          @click="set('overtime', !game.overtime)"
+        >
+          <span class="text-blue-300" :class="{ 'opacity-30': !game.overtime }"
             >OT</span
           >
-        </td>
-        <td>
-          <span>{{ game.team2Score ?? "-" }}</span>
-        </td>
-        <td>
-          <div v-if="team2Image" class="app-btn-round p-0 hover:bg-transparent">
-            <img :src="team2Image" class="w-28" />
-          </div>
-          <span class="font-light text-2xl" v-else>{{ game.team2 }}</span>
-        </td>
-      </tr>
-
-      <tr v-if="isExpanded" class="h-24 shadow-inner bg-black/10">
-        <td></td>
-        <td>
-          <div class="flex items-center justify-center mx-auto relative">
-            <button
-              class="app-btn-round absolute -left-5"
-              @click="set('team1Score', game.team1Score - 1)"
-            >
-              <mdi:chevron-left class="text-3xl" />
-            </button>
-            <span>{{ game.team1Score }}</span>
-            <button
-              class="app-btn-round absolute -right-5"
-              @click="set('team1Score', game.team1Score + 1)"
-            >
-              <mdi:chevron-right class="text-3xl" />
-            </button>
-          </div>
-        </td>
-        <td>
+        </button>
+      </div>
+      <div class="w-3/12">
+        <div class="flex items-center justify-center mx-auto relative">
           <button
-            class="app-btn mx-auto"
-            @click="set('overtime', !game.overtime)"
+            class="app-btn-round absolute -left-5"
+            @click="set('team2Score', game.team2Score - 1)"
           >
-            <span
-              class="text-blue-300"
-              :class="{ 'opacity-30': !game.overtime }"
-              >OT</span
-            >
+            <mdi:chevron-left class="text-3xl" />
           </button>
-        </td>
-        <td>
-          <div class="flex items-center justify-center mx-auto relative">
-            <button
-              class="app-btn-round absolute -left-5"
-              @click="set('team2Score', game.team2Score - 1)"
-            >
-              <mdi:chevron-left class="text-3xl" />
-            </button>
-            <span>{{ game.team2Score }}</span>
-            <button
-              class="app-btn-round absolute -right-5"
-              @click="set('team2Score', game.team2Score + 1)"
-            >
-              <mdi:chevron-right class="text-3xl" />
-            </button>
-          </div>
-        </td>
-        <td></td>
-      </tr>
-    </table>
+          <span>{{ game.team2Score }}</span>
+          <button
+            class="app-btn-round absolute -right-5"
+            @click="set('team2Score', game.team2Score + 1)"
+          >
+            <mdi:chevron-right class="text-3xl" />
+          </button>
+        </div>
+      </div>
+      <div class="w-3/12"></div>
+    </div>
   </div>
 </template>
 
@@ -112,29 +115,8 @@ const set = async (prop: string, value: number | boolean) => {
   const game = { ...props.game };
   game[prop] = value;
 
-  $store.setLoading(true);
   await $store.updateTournamentGame(game);
-  $store.setLoading(false);
 };
 </script>
 
-<style lang="less" scoped>
-table {
-  tr {
-    &:not(.game-header-row) {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    td {
-      text-align: center;
-      &:nth-child(1) button {
-        margin-left: auto;
-      }
-
-      &:nth-child(5) button {
-        margin-right: auto;
-      }
-    }
-  }
-}
-</style>
+<style lang="less" scoped></style>

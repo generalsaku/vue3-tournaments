@@ -5,9 +5,13 @@
     </button>
     <div class="self-center flex flex-col items-center">
       <span>BRACKET MASTER</span>
-      <span v-if="$store.tournament" class="text-3xl"
-        >"{{ $store.tournament.name }}"</span
-      >
+      <div v-if="$store.tournament" class="flex justify-center items-center">
+        <span class="text-3xl">"{{ $store.tournament.name }}"</span>
+        <mdi:lock
+          v-if="$store.tournament.isLocked"
+          class="ml-2 mb-1 text-4xl"
+        />
+      </div>
     </div>
     <button
       v-if="!$store.user.isAuthorized"

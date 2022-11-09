@@ -1,13 +1,11 @@
 <template>
-  <div v-if="$store.tournament">
-    <div
-      v-for="round in $store.tournament.bracketRounds"
-      :key="round.name"
-      class="mt-4"
-    >
-      <HeaderLine>{{ round.name }}</HeaderLine>
-      <Game v-for="game in round.games" :key="game.id" :game="game"></Game>
-    </div>
+  <div
+    v-for="round in $store.tournament.bracketRounds"
+    :key="round.name"
+    class="mt-4"
+  >
+    <HeaderLine>{{ round.name }}</HeaderLine>
+    <Game v-for="game in round.games" :key="game.id" :game="game"></Game>
   </div>
 </template>
 

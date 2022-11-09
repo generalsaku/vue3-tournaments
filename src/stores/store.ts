@@ -17,7 +17,11 @@ export const useStore = defineStore("store", () => {
   const setLoading = (value: boolean) => $ux.setLoading(value)
   const togglePanel = () => $ux.togglePanel()
 
+  const getTeams = async () => await service.teams.get()
+  const updateTeams = async (teams: []) => await service.teams.post(teams)
+
   const loadTournament = async (id: string) => await $tournament.load(id)
+  const getMyTournaments = async () => await service.tournament.mine();
 
   const subscribeToTournament = async (id: string) => {
     if (!$user.user.isAuthorized) {
@@ -30,11 +34,31 @@ export const useStore = defineStore("store", () => {
   }
 
   const unsubscribeToTournament = async (id: string) => {
-    if (!$tournament.exists) {
+    if (!$user.user.isAuthorized) {
       return;
     }
 
     await service.tournament.unsubscribe(id)
+
+    await $tournament.sync()
+  }
+
+  const lockTournament = async (id: string) => {
+    if (!$tournament.exists) {
+      return;
+    }
+
+    await service.tournament.lock(id)
+
+    await $tournament.sync()
+  }
+
+  const unlockTournament = async (id: string) => {
+    if (!$tournament.exists) {
+      return;
+    }
+
+    await service.tournament.unlock(id)
 
     await $tournament.sync()
   }
@@ -44,15 +68,35 @@ export const useStore = defineStore("store", () => {
       return;
     }
 
-    service.tournament.game($tournament.tournament.id, game.id, game.team1Score, game.overtime, game.team2Score)
+    service.tournament.game($tournament.tournament.id, game.id, Math.max(0, game.team1Score ?? 0), game.overtime, Math.max(0, game.team2Score ?? 0))
 
     await $tournament.sync()
   }
 
+  const updateTournamentTiebreaker = async (tiebreaker: string[]) => {
+    if (!$tournament.exists) {
+      return;
+    }
+
+    service.tournament.tiebreaker($tournament.tournament.id, tiebreaker)
+
+    await $tournament.sync()
+  }
+
+  const createTournament = async (tournament: any) => {
+    if (!$user.user.isAuthorized) {
+      return;
+    }
+
+    return await service.tournament.create(tournament)
+  }
+
+  const deleteTournament = async (id: string) => await service.tournament.delete(id)
+
   const getTeamImage = (teamName: string) => $tournament.getTeamImage(teamName)
 
   const toggleTournamentGame = (gameId: string) => {
-    if ($tournament.isLocked) {
+    if (!$tournament.exists || $tournament.isLocked) {
       return
     }
 
@@ -70,11 +114,20 @@ export const useStore = defineStore("store", () => {
     setLoading,
     togglePanel,
 
+    getTeams,
+    updateTeams,
+
     loadTournament,
+    createTournament,
+    deleteTournament,
+    getMyTournaments,
     getTeamImage, 
     subscribeToTournament, 
-    unsubscribeToTournament, 
+    unsubscribeToTournament,
+    lockTournament,
+    unlockTournament, 
     updateTournamentGame,
+    updateTournamentTiebreaker,
     toggleTournamentGame,
     isTournamentGameExpanded,
 
