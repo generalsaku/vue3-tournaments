@@ -9,7 +9,7 @@ import { requestForm } from "@/api/request";
 
 const props = defineProps(["id"]);
 
-const handleFile = async (e) => {
+const handleFile = async (e: any) => {
   let formData = new FormData();
   formData.append("file", e.target.files[0]);
 

@@ -5,7 +5,7 @@
       :class="{
         'border-[var(--color-primary)]': routeName === 'standings',
       }"
-      @click="() => this.$router.push({ name: 'standings' })"
+      @click="() => $router.push({ name: 'standings' })"
     >
       <mdi-clipboard-list-outline
         class="icon text-5xl app-color-primary"
@@ -21,7 +21,7 @@
       :class="{
         'border-[var(--color-primary)]': routeName === 'games',
       }"
-      @click="() => this.$router.push({ name: 'games' })"
+      @click="() => $router.push({ name: 'games' })"
     >
       <mdi-hockey-sticks
         class="icon text-5xl app-color-primary"
@@ -37,7 +37,7 @@
       :class="{
         'border-[var(--color-primary)]': routeName === 'bracket',
       }"
-      @click="() => this.$router.push({ name: 'bracket' })"
+      @click="() => $router.push({ name: 'bracket' })"
     >
       <mdi-star
         class="icon text-5xl app-color-primary"

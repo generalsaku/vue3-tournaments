@@ -23,7 +23,7 @@
     <button
       v-else
       class="app-btn-round p-0 w-20 h-20"
-      @click="this.$router.push({ name: 'profile' })"
+      @click="$router.push({ name: 'profile' })"
     >
       <img :src="$store.user.image" />
     </button>

@@ -20,7 +20,7 @@
         v-if="goTo"
         :disabled="!$store.user.isAuthorized"
         class="app-btn-outline ml-auto mt-4"
-        @click="this.$router.push(goTo)"
+        @click="$router.push(goTo)"
       >
         Let's go
       </button>

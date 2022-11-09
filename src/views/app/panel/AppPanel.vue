@@ -8,19 +8,13 @@
 
     <ul>
       <li>
-        <button
-          class="app-btn-nav"
-          @click="this.$router.push({ name: 'home' })"
-        >
+        <button class="app-btn-nav" @click="$router.push({ name: 'home' })">
           <mdi-home class="icon text-5xl mr-2" />
           <span>Home</span>
         </button>
       </li>
       <li>
-        <button
-          class="app-btn-nav"
-          @click="this.$router.push({ name: 'info' })"
-        >
+        <button class="app-btn-nav" @click="$router.push({ name: 'info' })">
           <mdi-information class="icon text-5xl mr-2" />
           <span>Info</span>
         </button>

@@ -18,7 +18,7 @@
             :main="{
               name: tournament.name,
               action: () => {
-                this.$router.push({
+                $router.push({
                   name: 'tournament',
                   params: { tournamentId: tournament.id },
                 });
@@ -28,7 +28,7 @@
               {
                 name: 'Delete',
                 action: async () => {
-                  await this.$store.deleteTournament(tournament.id);
+                  await $store.deleteTournament(tournament.id);
                   await update();
                 },
               },
@@ -49,7 +49,7 @@
             :main="{
               name: tournament.name,
               action: () => {
-                this.$router.push({
+                $router.push({
                   name: 'tournament',
                   params: { tournamentId: tournament.id },
                 });
@@ -59,7 +59,7 @@
               {
                 name: 'Unsubscribe',
                 action: async () => {
-                  await this.$store.unsubscribeToTournament(tournament.id);
+                  await $store.unsubscribeToTournament(tournament.id);
                   await update();
                 },
               },
@@ -86,8 +86,8 @@ import { useStore } from "@/stores/store";
 
 const $store = useStore();
 
-const owner = ref([]);
-const subscribed = ref([]);
+const owner = ref([] as any);
+const subscribed = ref([] as any);
 
 onMounted(async () => update());
 

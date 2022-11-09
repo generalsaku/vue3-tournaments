@@ -38,7 +38,7 @@ const $store = useStore();
 
 onMounted(() => update());
 
-const teams = ref([]);
+const teams = ref([] as any);
 
 const update = async () => {
   if (!$store.user.isAuthorized) {

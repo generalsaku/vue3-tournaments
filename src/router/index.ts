@@ -18,7 +18,7 @@ import Bigscreen from "../views/bigscreen/Bigscreen.vue";
 import { useStore } from "@/stores/store";
 
 export default function () {
-  const $store = useStore()
+  const $store = useStore();
 
   const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,65 +26,65 @@ export default function () {
       {
         path: "/",
         component: App,
-        redirect: { name: 'home' },
+        redirect: { name: "home" },
         children: [
           {
-            name: 'home',
-            path: 'home',
+            name: "home",
+            path: "home",
             component: AppHome,
           },
           {
-            name: 'profile',
-            path: 'profile',
-            component: AppProfile
+            name: "profile",
+            path: "profile",
+            component: AppProfile,
           },
           {
-            name: 'info',
-            path: 'info',
-            component: AppInfo
+            name: "info",
+            path: "info",
+            component: AppInfo,
           },
           {
-            name: 'create-tournament',
-            path: 'create-tournament',
-            component: AppCreateTournament
+            name: "create-tournament",
+            path: "create-tournament",
+            component: AppCreateTournament,
           },
           {
-            name: 'teams',
-            path: 'teams',
-            component: AppTeams
+            name: "teams",
+            path: "teams",
+            component: AppTeams,
           },
           {
-            name: 'tournament',
-            path: 'tournament/:tournamentId',
+            name: "tournament",
+            path: "tournament/:tournamentId",
             component: AppTournament,
-            redirect: { name: 'standings' },
+            redirect: { name: "standings" },
             children: [
               {
-                name: 'standings',
-                path: 'standings',
-                component: AppTournamentStandings
+                name: "standings",
+                path: "standings",
+                component: AppTournamentStandings,
               },
               {
-                name: 'games',
-                path: 'games',
-                component: AppTournamentGames
+                name: "games",
+                path: "games",
+                component: AppTournamentGames,
               },
               {
-                name: 'bracket',
-                path: 'bracket',
-                component: AppTournamentBracket
+                name: "bracket",
+                path: "bracket",
+                component: AppTournamentBracket,
               },
               {
-                name: 'tiebreaker',
-                path: 'tiebreaker',
-                component: AppTournamentTiebreaker
+                name: "tiebreaker",
+                path: "tiebreaker",
+                component: AppTournamentTiebreaker,
               },
-            ]
+            ],
           },
-        ]
+        ],
       },
       {
-        name: 'bigscreen',
+        name: "bigscreen",
         path: "/bigscreen",
         component: Bigscreen,
       },
@@ -92,22 +92,22 @@ export default function () {
   });
 
   router.beforeEach((to, from, next) => {
-    $store.authorize()
+    $store.authorize();
 
-    if (to.path === '/profile' && !$store.user.isAuthorized) {
-      next({ name: 'home' })
+    if (to.path === "/profile" && !$store.user.isAuthorized) {
+      next({ name: "home" });
     }
 
     if ($store.isPanelOpen) {
-      $store.togglePanel()
+      $store.togglePanel();
     }
 
-    next()
-  })
+    next();
+  });
 
-  router.beforeResolve(to => {
-    $store.toggleTournamentGame('')
-  })
+  router.beforeResolve((to) => {
+    $store.toggleTournamentGame("");
+  });
 
-  return router
+  return router;
 }

@@ -17,7 +17,7 @@ const $store = useStore();
 
 onMounted(() => {
   if (route.params.tournamentId?.length) {
-    $store.loadTournament(route.params.tournamentId);
+    $store.loadTournament(route.params.tournamentId as string);
   }
 });
 </script>
