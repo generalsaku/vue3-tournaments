@@ -78,7 +78,7 @@ export const useStore = defineStore("store", () => {
     }
 
     $ux.isLoading = true
-    service.tournament.game(
+    await service.tournament.game(
       $tournament.tournament.id,
       game.id,
       Math.max(0, game.team1Score ?? 0),
