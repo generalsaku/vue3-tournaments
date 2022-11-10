@@ -85,7 +85,7 @@ export default function () {
       },
       {
         name: "bigscreen",
-        path: "/bigscreen",
+        path: "/bigscreen/:tournamentId",
         component: Bigscreen,
       },
     ],

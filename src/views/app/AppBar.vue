@@ -1,5 +1,7 @@
 <template>
-  <header class="app-shadow-primary app-flex-center justify-between px-4 py-2">
+  <header
+    class="app-shadow-primary app-flex-center justify-between px-4 py-2 relative"
+  >
     <button class="app-btn-round" @click="$store.togglePanel">
       <mdi-menu class="icon text-5xl" />
     </button>
@@ -27,6 +29,11 @@
     >
       <img :src="$store.user.image" />
     </button>
+
+    <div
+      v-if="$store.isLoading"
+      class="absolute inset-x-0 bottom-0 pulse"
+    ></div>
   </header>
 </template>
 
@@ -42,4 +49,23 @@ const signIn = () => {
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.pulse {
+  height: 2px;
+  animation: pulse ease-in-out infinite 3s;
+}
+
+@keyframes pulse {
+  0% {
+    background: rgba(255, 255, 255, 0);
+  }
+
+  50% {
+    background: rgba(255, 255, 255, 0.8);
+  }
+
+  100% {
+    background: rgba(255, 255, 255, 0);
+  }
+}
+</style>

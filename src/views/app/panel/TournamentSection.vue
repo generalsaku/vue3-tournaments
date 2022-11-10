@@ -94,7 +94,10 @@ const action = async (actionName: string) => {
       await $store.unsubscribeToTournament($store.tournament.id);
       break;
     case "bigscreen":
-      router.push({ name: "bigscreen" });
+      router.push({
+        name: "bigscreen",
+        params: { tournamentId: $store.tournament.id },
+      });
       break;
   }
 };

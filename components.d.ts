@@ -23,6 +23,7 @@ declare module '@vue/runtime-core' {
     'Mdi:listBoxOutline': typeof import('~icons/mdi/list-box-outline')['default']
     'Mdi:lock': typeof import('~icons/mdi/lock')['default']
     'Mdi:lockOpen': typeof import('~icons/mdi/lock-open')['default']
+    'Mdi:star': typeof import('~icons/mdi/star')['default']
     'Mdi:swapVertical': typeof import('~icons/mdi/swap-vertical')['default']
     'Mdi:tournament': typeof import('~icons/mdi/tournament')['default']
     MdiClipboardListOutline: typeof import('~icons/mdi/clipboard-list-outline')['default']

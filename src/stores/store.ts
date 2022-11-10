@@ -27,20 +27,22 @@ export const useStore = defineStore("store", () => {
     if (!$user.user.isAuthorized) {
       return;
     }
-
+    
+    $ux.isLoading = true
     await service.tournament.subscribe(id);
-
     await $tournament.sync();
+    $ux.isLoading = false
   };
 
   const unsubscribeToTournament = async (id: string) => {
     if (!$user.user.isAuthorized) {
       return;
     }
-
+    
+    $ux.isLoading = true
     await service.tournament.unsubscribe(id);
-
     await $tournament.sync();
+    $ux.isLoading = false
   };
 
   const lockTournament = async (id: string) => {
@@ -48,9 +50,10 @@ export const useStore = defineStore("store", () => {
       return;
     }
 
+    $ux.isLoading = true
     await service.tournament.lock(id);
-
     await $tournament.sync();
+    $ux.isLoading = false
   };
 
   const unlockTournament = async (id: string) => {
@@ -58,9 +61,10 @@ export const useStore = defineStore("store", () => {
       return;
     }
 
+    $ux.isLoading = true
     await service.tournament.unlock(id);
-
     await $tournament.sync();
+    $ux.isLoading = false
   };
 
   const updateTournamentGame = async (game: {
@@ -73,6 +77,7 @@ export const useStore = defineStore("store", () => {
       return;
     }
 
+    $ux.isLoading = true
     service.tournament.game(
       $tournament.tournament.id,
       game.id,
@@ -80,8 +85,8 @@ export const useStore = defineStore("store", () => {
       game.overtime,
       Math.max(0, game.team2Score ?? 0)
     );
-
     await $tournament.sync();
+    $ux.isLoading = false
   };
 
   const updateTournamentTiebreaker = async (tiebreaker: string[]) => {
@@ -99,11 +104,18 @@ export const useStore = defineStore("store", () => {
       return;
     }
 
-    return await service.tournament.create(tournament);
+    $ux.isLoading = true
+    const result = await service.tournament.create(tournament)
+    $ux.isLoading = false
+
+    return result;
   };
 
-  const deleteTournament = async (id: string) =>
+  const deleteTournament = async (id: string) => {
+    $ux.isLoading = true
     await service.tournament.delete(id);
+    $ux.isLoading = false
+  }
 
   const getTeamImage = (teamName: string) => $tournament.getTeamImage(teamName);
 
