@@ -1,5 +1,11 @@
 <template>
   <ul>
+    <li @click="() => action('tournament')">
+      <button class="app-btn-nav">
+        {{ $store.tournament.name }}
+      </button>
+    </li>
+
     <li v-if="canLock" @click="() => action('lock')">
       <button class="app-btn-nav">
         <mdi:lock class="mr-2 ml-16 text-4xl" />Lock
@@ -75,6 +81,12 @@ const canUnsubscribe = computed(
 
 const action = async (actionName: string) => {
   switch (actionName) {
+    case "tournament":
+      await router.push({
+        name: "tournament",
+        params: { tournamentId: $store.tournament.id },
+      });
+      break;
     case "lock":
       await $store.lockTournament($store.tournament.id);
       break;

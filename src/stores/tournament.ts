@@ -12,7 +12,6 @@ export const useTournamentStore = defineStore("tournament", () => {
 
   const load = async (id: string) => {
     tournament.value = await service.tournament.get(id);
-    console.log(tournament.value);
   };
 
   const sync = async () =>

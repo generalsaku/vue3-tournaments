@@ -23,9 +23,6 @@
     <section v-if="$store.tournament" class="flex flex-col items-center">
       <hr class="w-80 my-4 mb-8" />
       <div class="w-full">
-        <h3 class="text-3xl mb-2 ml-16">
-          {{ $store.tournament.name }}
-        </h3>
         <TournamentSection></TournamentSection>
       </div>
     </section>

@@ -12,6 +12,7 @@ import AppTournamentStandings from "../views/app/tournament/AppTournamentStandin
 import AppTournamentGames from "../views/app/tournament/AppTournamentGames.vue";
 import AppTournamentBracket from "../views/app/tournament/AppTournamentBracket.vue";
 import AppTournamentTiebreaker from "../views/app/tournament/AppTournamentTiebreaker.vue";
+import AppTournamentTeam from "../views/app/tournament/AppTournamentTeam.vue";
 
 import Bigscreen from "../views/bigscreen/Bigscreen.vue";
 
@@ -78,6 +79,11 @@ export default function () {
                 name: "tiebreaker",
                 path: "tiebreaker",
                 component: AppTournamentTiebreaker,
+              },
+              {
+                name: "team",
+                path: "team/:team",
+                component: AppTournamentTeam,
               },
             ],
           },

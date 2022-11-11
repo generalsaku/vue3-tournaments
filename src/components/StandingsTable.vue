@@ -34,7 +34,12 @@
       <tr v-for="(standing, index) in standings" :key="index">
         <td title="POSITION">{{ index + 1 }}</td>
         <td class="w-28">
-          <button class="app-btn-round p-0 hover:bg-transparent">
+          <button
+            class="app-btn-round p-0 hover:bg-transparent"
+            @click="
+              $router.push({ name: 'team', params: { team: standing.team } })
+            "
+          >
             <img :src="getTeamImage(standing.team)" />
           </button>
         </td>

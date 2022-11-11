@@ -323,7 +323,6 @@ const setter = {
 };
 
 const createTournament = async () => {
-  console.log(tournament.value);
   const tournamentId = await $store.createTournament(tournament.value);
   router.push({ name: "tournament", params: { tournamentId } });
 };

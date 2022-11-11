@@ -1,5 +1,5 @@
 <template>
-  <Card go-to="teams">
+  <Card>
     <template #title>
       <h3 class="text-5xl">Create teams</h3>
     </template>
