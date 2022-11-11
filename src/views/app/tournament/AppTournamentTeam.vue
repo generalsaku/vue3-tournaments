@@ -48,9 +48,9 @@ const $store = useStore();
 const route = useRoute();
 
 const team = computed(() => route.params.team);
-const teamImage = computed(() => $store.getTeamImage(team.value));
+const teamImage = computed(() => $store.getTeamImage(team.value as any));
 const games = computed(() => {
-  const _games = [];
+  const _games: any[] = [];
 
   // QUALIFYING
   for (const group of $store.tournament.qualifyingRound.groups) {
