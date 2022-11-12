@@ -2,30 +2,30 @@
   <table class="standing font-light w-full">
     <thead>
       <tr>
-        <th>#</th>
-        <th>Team</th>
-        <th class="relative">
+        <th class="select-none">#</th>
+        <th class="select-none">Team</th>
+        <th class="relative select-none">
           GP <Tooltip position="right">{{ getTooltip("gp") }}</Tooltip>
         </th>
-        <th class="relative">
+        <th class="relative select-none">
           W <Tooltip>{{ getTooltip("w") }}</Tooltip>
         </th>
-        <th class="relative">
+        <th class="relative select-none">
           L <Tooltip>{{ getTooltip("l") }}</Tooltip>
         </th>
-        <th class="relative">
+        <th class="relative select-none">
           OTL <Tooltip>{{ getTooltip("otl") }}</Tooltip>
         </th>
-        <th class="relative">
+        <th class="relative select-none">
           GF <Tooltip>{{ getTooltip("gf") }}</Tooltip>
         </th>
-        <th class="relative">
+        <th class="relative select-none">
           GA <Tooltip>{{ getTooltip("ga") }}</Tooltip>
         </th>
-        <th class="relative">
+        <th class="relative select-none">
           Diff <Tooltip>{{ getTooltip("diff") }}</Tooltip>
         </th>
-        <th class="relative">
+        <th class="relative select-none">
           Pts <Tooltip position="left">{{ getTooltip("pts") }}</Tooltip>
         </th>
       </tr>
