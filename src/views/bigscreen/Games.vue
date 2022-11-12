@@ -1,8 +1,9 @@
 <template>
-  <div class="games flex h-screen overflow-hidden" v-if="$store.tournament">
+  <div class="games flex h-screen overflow-hidden">
     <div
       v-for="(group, index1) in $store.tournament.qualifyingRound.groups"
       :key="index1"
+      class="ring-1 ring-white/20"
     >
       <div class="bg-white/10 text-center">
         <span>{{ group.name }}</span>

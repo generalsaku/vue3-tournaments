@@ -18,4 +18,8 @@ import Game from "@/components/Game.vue";
 const $store = useStore();
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+::v-deep .ot-btn {
+  visibility: hidden;
+}
+</style>

@@ -3,7 +3,7 @@
     <div style="flex-basis: 420px; flex-shrink: 0">
       <Games></Games>
     </div>
-    <div class="h-screen ring-1 ring-white/20 mr-8"></div>
+    <div class="h-screen mr-8"></div>
     <Bracket></Bracket>
   </div>
 </template>

@@ -48,6 +48,6 @@ const getGroupings = (bracket: any) => {
 }
 
 ::v-deep span {
-  font-size: 28px;
+  font-size: 24px;
 }
 </style>

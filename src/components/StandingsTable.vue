@@ -31,7 +31,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(standing, index) in standings" :key="index">
+      <tr
+        v-for="(standing, index) in standings"
+        :key="standing.team"
+        :class="[
+          !highlightTeam || highlightTeam === standing.team
+            ? 'visible'
+            : 'hidden',
+        ]"
+      >
         <td title="POSITION">{{ index + 1 }}</td>
         <td class="w-28">
           <button
@@ -69,7 +77,7 @@ import { useStore } from "@/stores/store";
 
 import Tooltip from "@/components/Tooltip.vue";
 
-defineProps(["standings"]);
+defineProps(["standings", "highlightTeam"]);
 
 const $store = useStore();
 

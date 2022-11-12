@@ -10,14 +10,16 @@
       <div class="w-3/12 text-center relative">
         <img v-if="team1Image" :src="team1Image" class="w-28 mx-auto" />
         <span v-else class="font-light text-2xl">{{ game.team1 }}</span>
-        <mdi:star
-          v-if="isTeam1Winner"
-          class="absolute right-2 top-2 text-yellow-200/50 text-2xl"
-        />
       </div>
 
       <div class="w-3/12 text-center">
-        <span>{{ game.team1Score ?? "-" }}</span>
+        <span class="relative">
+          <mdi:star
+            v-if="isTeam1Winner"
+            class="absolute right-8 top-1 text-yellow-200/50 text-2xl"
+          />
+          {{ game.team1Score ?? "-" }}
+        </span>
       </div>
       <div class="w-40 text-center">
         <span class="text-blue-300" :class="{ 'opacity-0': !game.overtime }"
@@ -25,15 +27,17 @@
         >
       </div>
       <div class="w-3/12 text-center">
-        <span>{{ game.team2Score ?? "-" }}</span>
+        <span class="relative">
+          <mdi:star
+            v-if="isTeam2Winner"
+            class="absolute left-8 top-1 text-yellow-200/50 text-2xl"
+          />
+          {{ game.team2Score ?? "-" }}</span
+        >
       </div>
       <div class="w-3/12 text-center relative">
         <img v-if="team2Image" :src="team2Image" class="w-28 mx-auto" />
         <span class="font-light text-2xl" v-else>{{ game.team2 }}</span>
-        <mdi:star
-          v-if="isTeam2Winner"
-          class="absolute left-2 top-2 text-yellow-200/50 text-2xl"
-        />
       </div>
     </div>
 
@@ -61,7 +65,7 @@
       </div>
       <div class="w-40 text-center">
         <button
-          class="app-btn mx-auto hover:bg-black/5"
+          class="app-btn mx-auto hover:bg-black/5 ot-btn"
           :class="{
             'shadow-inner bg-black/5': !game.overtime,
             'bg-black/5 ring-1': game.overtime,
@@ -98,6 +102,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useStore } from "@/stores/store";
+import * as gameLogic from "@/logic/gameLogic";
 
 const props = defineProps(["game", "readonly"]);
 const $store = useStore();
@@ -126,27 +131,8 @@ const set = async (prop: string, value: number | boolean) => {
   await $store.updateTournamentGame(game);
 };
 
-const isOvertimeValid = computed(
-  () =>
-    !props.game.overtime ||
-    Math.abs(props.game.team1Score - props.game.team2Score) === 1
-);
-
-const isTeam1Winner = computed(
-  () =>
-    props.game.team1Score != null &&
-    props.game.team2Score != null &&
-    (props.game.team1Score ?? 0) > (props.game.team2Score ?? 0) &&
-    isOvertimeValid.value
-);
-
-const isTeam2Winner = computed(
-  () =>
-    props.game.team1Score != null &&
-    props.game.team2Score != null &&
-    (props.game.team1Score ?? 0) < (props.game.team2Score ?? 0) &&
-    isOvertimeValid.value
-);
+const isTeam1Winner = computed(() => gameLogic.isTeam1Winner(props.game));
+const isTeam2Winner = computed(() => gameLogic.isTeam2Winner(props.game));
 </script>
 
 <style lang="less" scoped></style>
