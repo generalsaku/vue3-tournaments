@@ -153,12 +153,20 @@
       @back="back"
       @next="next"
     >
-      <input
-        type="text"
-        class="app-text-input mt-8"
-        v-model="teamSearchTerm"
-        placeholder="Search team..."
-      />
+      <div class="flex mt-8">
+        <input
+          type="text"
+          class="app-text-input"
+          v-model="teamSearchTerm"
+          placeholder="Search team..."
+        />
+        <button
+          class="app-btn-outline mt-auto ml-2 text-2xl"
+          @click="() => (teamSearchTerm = '')"
+        >
+          Clear
+        </button>
+      </div>
 
       <div class="flex mt-8">
         <div
