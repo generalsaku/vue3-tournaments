@@ -26,6 +26,7 @@ declare module '@vue/runtime-core' {
     'Mdi:lockOpen': typeof import('~icons/mdi/lock-open')['default']
     'Mdi:outlineDownloading': typeof import('~icons/mdi/outline-downloading')['default']
     'Mdi:progressDownload': typeof import('~icons/mdi/progress-download')['default']
+    'Mdi:send': typeof import('~icons/mdi/send')['default']
     'Mdi:star': typeof import('~icons/mdi/star')['default']
     'Mdi:swapVertical': typeof import('~icons/mdi/swap-vertical')['default']
     'Mdi:tournament': typeof import('~icons/mdi/tournament')['default']

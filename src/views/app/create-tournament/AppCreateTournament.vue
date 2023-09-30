@@ -11,7 +11,7 @@
     >
       <input
         type="text"
-        class="app-text-input"
+        class="app-text-input mt-8"
         :value="tournament.name"
         @input="(e: any) => setter.setName(e.target.value)"
       />
@@ -153,6 +153,13 @@
       @back="back"
       @next="next"
     >
+      <input
+        type="text"
+        class="app-text-input mt-8"
+        v-model="teamSearchTerm"
+        placeholder="Search team..."
+      />
+
       <div class="flex mt-8">
         <div
           v-for="(column, index) in teamSelectionCount"
@@ -166,7 +173,7 @@
       </div>
 
       <div
-        v-for="team in teams"
+        v-for="team in availableTeams"
         :key="team.name"
         class="flex app-border-bottom-light py-4"
       >
@@ -221,6 +228,14 @@ const router = useRouter();
 const teams = ref([] as any);
 const teamSelection = ref({} as any);
 const currentStep = ref(1);
+const teamSearchTerm = ref("");
+const availableTeams = computed(() =>
+  teams.value.filter((team) =>
+    teamSearchTerm.value.length
+      ? team.name.toLowerCase().includes(teamSearchTerm.value.toLowerCase())
+      : true
+  )
+);
 
 const tournament = ref({
   name: null,

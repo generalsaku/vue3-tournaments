@@ -50,14 +50,16 @@
         <div class="flex items-center justify-center relative">
           <button
             class="app-btn-round absolute -left-5"
-            @click="set('team1Score', game.team1Score - 1)"
+            @click="set('team1Score', Math.max(0, editableGame.team1Score - 1))"
+            :disabled="isUpdating"
           >
             <mdi:chevron-left class="text-3xl" />
           </button>
-          <span>{{ game.team1Score }}</span>
+          <span>{{ editableGame.team1Score }}</span>
           <button
             class="app-btn-round absolute -right-5"
-            @click="set('team1Score', game.team1Score + 1)"
+            @click="set('team1Score', Math.max(0, editableGame.team1Score + 1))"
+            :disabled="isUpdating"
           >
             <mdi:chevron-right class="text-3xl" />
           </button>
@@ -67,12 +69,15 @@
         <button
           class="app-btn mx-auto hover:bg-black/5 ot-btn"
           :class="{
-            'shadow-inner bg-black/5': !game.overtime,
-            'bg-black/5 ring-1': game.overtime,
+            'shadow-inner bg-black/5': !editableGame.overtime,
+            'bg-black/5 ring-1': editableGame.overtime,
           }"
-          @click="set('overtime', !game.overtime)"
+          @click="set('overtime', !editableGame.overtime)"
+          :disabled="isUpdating"
         >
-          <span class="text-blue-300" :class="{ 'opacity-30': !game.overtime }"
+          <span
+            class="text-blue-300"
+            :class="{ 'opacity-30': !editableGame.overtime }"
             >OT</span
           >
         </button>
@@ -81,30 +86,46 @@
         <div class="flex items-center justify-center mx-auto relative">
           <button
             class="app-btn-round absolute -left-5"
-            @click="set('team2Score', game.team2Score - 1)"
+            @click="set('team2Score', Math.max(0, editableGame.team2Score - 1))"
+            :disabled="isUpdating"
           >
             <mdi:chevron-left class="text-3xl" />
           </button>
-          <span>{{ game.team2Score }}</span>
+          <span>{{ editableGame.team2Score }}</span>
           <button
             class="app-btn-round absolute -right-5"
-            @click="set('team2Score', game.team2Score + 1)"
+            @click="set('team2Score', Math.max(0, editableGame.team2Score + 1))"
+            :disabled="isUpdating"
           >
             <mdi:chevron-right class="text-3xl" />
           </button>
         </div>
       </div>
-      <div class="w-3/12"></div>
+      <div class="w-3/12 text-center">
+        <button
+          v-if="!isUpdating"
+          class="app-btn-round p-4 mx-auto app-bg-primary"
+          @click="updateGame()"
+          :disabled="isUpdating"
+        >
+          <mdi:send class="text-3xl" />
+        </button>
+        <span v-else class="mx-auto text-xl text-white/80">Saving...</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "@/stores/store";
 import * as gameLogic from "@/logic/gameLogic";
 
 const props = defineProps(["game", "readonly"]);
+const editableGame = ref({
+  ...props.game,
+});
+const isUpdating = ref(false);
 const $store = useStore();
 
 const isExpanded = computed(
@@ -124,11 +145,14 @@ const isGameNameVisible = computed(
     !(props.game.type === 0 || props.game.type === 4 || props.game.type === 5) // Consolidation, Final
 );
 
-const set = async (prop: string, value: number | boolean) => {
-  const game = { ...props.game };
-  game[prop] = value;
+const set = (prop: string, value: number | boolean) => {
+  editableGame.value[prop] = value;
+};
 
-  await $store.updateTournamentGame(game);
+const updateGame = async () => {
+  isUpdating.value = true;
+  await $store.updateTournamentGame(editableGame.value);
+  isUpdating.value = false;
 };
 
 const isTeam1Winner = computed(() => gameLogic.isTeam1Winner(props.game));
