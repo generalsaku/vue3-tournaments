@@ -43,7 +43,7 @@
         <td title="POSITION">{{ index + 1 }}</td>
         <td class="w-28">
           <button
-            class="app-btn-round p-0 hover:bg-transparent"
+            class="app-btn-round p-0 hover:bg-transparent overflow-visible"
             @click="
               $router.push({ name: 'team', params: { team: standing.team } })
             "

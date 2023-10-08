@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
+import { isDarkTheme, setDarkTheme } from "@/logic/theme";
 
 window.addEventListener("load", () => {
   const update = () => {
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--app-vh", `${vh}px`);
+
+    if (isDarkTheme()) {
+      setDarkTheme();
+    }
   };
 
   window.addEventListener("resize", update);

@@ -19,6 +19,13 @@
           <span>Info</span>
         </button>
       </li>
+      <li>
+        <button class="app-btn-nav" @click="toggleDarkMode">
+          <mdi-theme-light-dark class="icon text-5xl mr-2" />
+          <span v-if="!_isDarkTheme">Dark theme</span>
+          <span v-else>Light theme</span>
+        </button>
+      </li>
     </ul>
     <section v-if="$store.tournament" class="flex flex-col items-center">
       <hr class="w-80 my-4 mb-8" />
@@ -30,12 +37,33 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref, watch } from "vue";
+import { onBeforeMount, onMounted, ref, watch } from "vue";
 import { useStore } from "@/stores/store";
 
 import TournamentSection from "@/views/app/panel/TournamentSection.vue";
+import {
+  isDarkTheme,
+  toggleToDarkTheme,
+  toggleToLightTheme,
+} from "@/logic/theme";
 
 const $ref = ref();
+
+const _isDarkTheme = ref(false);
+
+onMounted(() => {
+  _isDarkTheme.value = isDarkTheme();
+});
+
+const toggleDarkMode = () => {
+  if (_isDarkTheme.value) {
+    toggleToLightTheme();
+    _isDarkTheme.value = false;
+  } else {
+    toggleToDarkTheme();
+    _isDarkTheme.value = true;
+  }
+};
 
 const $store = useStore();
 

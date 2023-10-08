@@ -37,6 +37,7 @@ declare module '@vue/runtime-core' {
     MdiInformation: typeof import('~icons/mdi/information')['default']
     MdiMenu: typeof import('~icons/mdi/menu')['default']
     MdiStar: typeof import('~icons/mdi/star')['default']
+    MdiThemeLightDark: typeof import('~icons/mdi/theme-light-dark')['default']
     Menu: typeof import('./src/components/Menu.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

@@ -60,8 +60,8 @@
 .app-bg-primary-to-secondary {
     background: linear-gradient(
         to right bottom,
-        #648880,
-        #35465f
+        var(--color-bg-1),
+        var(--color-bg-2)
       )
 }
 
@@ -83,6 +83,9 @@
     --color-primary: #648880;
     --color-secondary: #35465f;
     --color-ternary: #607c85;
+
+    --color-bg-1: #648880;
+    --color-bg-2: #35465f;
 }
 
 /* Firefox */
