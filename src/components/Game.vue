@@ -115,7 +115,9 @@
         >
           <mdi:send class="text-3xl" />
         </button>
-        <span v-else class="mx-auto text-xl text-white/80">Saving...</span>
+        <span v-else class="mx-auto text-xl text-white/80 uppercase"
+          >Saving...</span
+        >
       </div>
     </div>
   </div>
