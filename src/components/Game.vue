@@ -1,11 +1,16 @@
 <template>
-  <div class="px-4 relative" :class="{ 'bg-white/5 pb-4': isExpanded }">
+  <div
+    class="px-4 relative"
+    :class="{
+      'bg-white/5 pb-4 mb-4 outline outline-1 outline-white/30': isExpanded,
+    }"
+  >
     <div v-if="isGameNameVisible" class="w-full text-2xl pt-2 text-center">
       {{ game.name }}
     </div>
     <div
       class="flex items-center justify-between app-border-bottom-light min-h-[50px] max-h-[64px]"
-      @click="toggle"
+      @click.prevent="toggle"
     >
       <div class="w-3/12 text-center relative">
         <img v-if="team1Image" :src="team1Image" class="w-28 mx-auto" />
@@ -69,8 +74,8 @@
         <button
           class="app-btn mx-auto hover:bg-black/5 ot-btn"
           :class="{
-            'shadow-inner bg-black/5': !editableGame.overtime,
-            'bg-black/5 ring-1': editableGame.overtime,
+            'bg-black/5 shadow-inner': !editableGame.overtime,
+            'bg-black/5 ring-blue-400 ring-2': editableGame.overtime,
           }"
           @click="set('overtime', !editableGame.overtime)"
           :disabled="isUpdating"
@@ -133,6 +138,9 @@ const isExpanded = computed(
 );
 
 const toggle = () => {
+  if (!isExpanded.value) {
+    editableGame.value = { ...props.game };
+  }
   $store.toggleTournamentGame(!isExpanded.value ? props.game.id : "");
 };
 
@@ -153,6 +161,7 @@ const updateGame = async () => {
   isUpdating.value = true;
   await $store.updateTournamentGame(editableGame.value);
   isUpdating.value = false;
+  toggle();
 };
 
 const isTeam1Winner = computed(() => gameLogic.isTeam1Winner(props.game));

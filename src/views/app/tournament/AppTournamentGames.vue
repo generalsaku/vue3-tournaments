@@ -4,7 +4,7 @@
     :key="group.name"
     class="mt-4"
   >
-    <HeaderLine
+    <HeaderLine class="mb-2"
       >{{ group.name }} ({{ completedCount(group.games) }}/
       {{ group.games.length }})</HeaderLine
     >
