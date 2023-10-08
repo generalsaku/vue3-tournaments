@@ -54,7 +54,7 @@
       <div class="w-3/12">
         <div class="flex items-center justify-center relative">
           <button
-            class="app-btn-round absolute -left-5"
+            class="app-btn absolute -left-5"
             @click="set('team1Score', Math.max(0, editableGame.team1Score - 1))"
             :disabled="isUpdating"
           >
@@ -62,7 +62,7 @@
           </button>
           <span>{{ editableGame.team1Score }}</span>
           <button
-            class="app-btn-round absolute -right-5"
+            class="app-btn absolute -right-5"
             @click="set('team1Score', Math.max(0, editableGame.team1Score + 1))"
             :disabled="isUpdating"
           >
@@ -90,7 +90,7 @@
       <div class="w-3/12">
         <div class="flex items-center justify-center mx-auto relative">
           <button
-            class="app-btn-round absolute -left-5"
+            class="app-btn absolute -left-5"
             @click="set('team2Score', Math.max(0, editableGame.team2Score - 1))"
             :disabled="isUpdating"
           >
@@ -98,7 +98,7 @@
           </button>
           <span>{{ editableGame.team2Score }}</span>
           <button
-            class="app-btn-round absolute -right-5"
+            class="app-btn absolute -right-5"
             @click="set('team2Score', Math.max(0, editableGame.team2Score + 1))"
             :disabled="isUpdating"
           >
@@ -109,7 +109,7 @@
       <div class="w-3/12 text-center">
         <button
           v-if="!isUpdating"
-          class="app-btn-round p-4 mx-auto app-bg-primary"
+          class="app-btn p-4 px-6 mx-auto app-bg-primary bg-green-300/50"
           @click="updateGame()"
           :disabled="isUpdating"
         >
