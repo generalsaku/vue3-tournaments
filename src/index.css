@@ -77,6 +77,10 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.app-border-top-light {
+    border-top: 1px solid rgb(255, 255, 255, 0.08);
+}
+
 @tailwind utilities;
 
 :root {

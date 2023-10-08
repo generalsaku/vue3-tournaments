@@ -1,5 +1,7 @@
 <template>
-  <footer class="app-shadow-primary app-flex-center justify-around">
+  <footer
+    class="app-shadow-primary app-flex-center justify-around app-border-top-light"
+  >
     <button
       class="app-btn-nav flex-col flex-1 text-2xl border-b-4 border-transparent border-solid"
       :class="{
