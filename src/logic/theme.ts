@@ -2,14 +2,18 @@ type theme = { [key: string]: string }
 
 const themes: Record<string, theme> = {
     light: {
+        '--color-primary': '#648880',
+        '--color-ternary': '#607c85',
         '--color-bg-1': '#648880',
         '--color-bg-2': '#35465f',
-        '--color-ternary': '#607c85'
+        '--color-shadow': 'rgba(0,0,0,0.2)'
     },
     dark: {
-        '--color-bg-1': '#333333',
-        '--color-bg-2': '#252526',
-        '--color-ternary': '#252526'
+        '--color-primary': '#ffffff80',
+        '--color-ternary': '#ffffff12',
+        '--color-bg-1': '#252526',
+        '--color-bg-2': '#041323',
+        '--color-shadow': 'rgba(0,0,0,0.2)'
     }
 }
 
